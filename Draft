@@ -36371,6 +36371,794 @@ Conquer over worlds
 .
 .
 
+All those times 
+Set off school alarms
+
+Of the various high schools
+Breaking & entering
+
+world alive in sound
+pack of kids like running bunnies
+*
+*
+*
+Loss zerg match
+Troll into a rematch
+
+Troll-win third match
+<evo>Virus Rage-quits
+
+Blow up in symphonies of troll
+Then I invite to 2s
+
+That Saturday of the week
+Woke up on last-nug
+
+Third time 2s
+Few hours later
+LAN at <evo>Virus house
+
+drunk & blunted
+
+VS Jig NA GrandMaster #7
+& Pro gosu PVP
+
+They & stream-channel 
+Admitted it very-hard-won
+_
+
+Night dreamt dreams
+Starcraft II
+Decided fates of multitudes
+
+Myself chosen of few
+.
+.
+.
+Fuck are we just quantum instances of possibilites
+Thru that enterium data shared namely intelligence
+
+Intelligence proven correct response
+.
+.
+.
+Superior Zerg
+Build the macro
+.
+.
+.
+first get vibe of voice
+masterpiece naturally follow
+.
+.
+.
+Jig
+~woah
+
+#7 Grand Master 
+Caught on video
+In wonder of me
+*
+*
+*
+Impressions left
+Upon grand-masters
+
+Prove myself with-out equal
+Yet usefulness still to-be-proven
+.
+.
+.
+Yang Jwing-Ming
+
+ninjastar all about
+A stationary cast of Jin
+
+Movement mastered 
+Point the body
+*
+*
+*
+Kung Fu disciple
+Tested me
+I felt approved
+_
+
+Inspired by the
+Oakland crackhead
+
+Train home
+I tested devine'n
+
+'Your name is
+'Jessi..
+
+From her reaction
+I may have had it
+
+'I changed my name
+
+Wildfires defeated her
+Journey mountain top only compass
+.
+.
+.
+unix network core
+the kernel core
+remote minions & vessels
+
+unix
+KERN_CONF
+	network (pf)
+	groups 
+	zfs
+	OTOPSK ssh
+	OPIE ssh
+	lib
+	scp
+	http
+	8080
+	ftp
+	irc
+	lpt
+// TODO ////////////////////////////// 
+// remove fragment
+// remove SKIP FIREWALL
+// inspect headers
+// route /////////////////////////////	
+static void pf_route(              // main pf function
+// VARIANTS //////////////////////////	
+struct mbuf **m,           // 
+struct pf_rule *r,         // policy	
+int dir,                   // direction to scan 
+struct ifnet *oifp,        // 
+struct pf_state *s,        // state
+struct pf_pdesc *pd)       //
+{
+// CONSTANTS /////////////////////////
+	struct mbuf *m0, *m1;      //
+	struct sockaddr_in dst;    //
+	struct ip *ip;             //
+	struct ifnet *ifp = NULL;  //
+	struct pf_addr naddr;      //
+	struct pf_src_node *sn = NULL;
+	int error = 0;
+	wint16_t ip_len, ip_off;
+// KASSERT ///////////////////////////
+	KASSERT(m && *m && r && oifp, ("%s: invalid parameters", __func__));
+	KASSERT(dir == PF_IN || dir == PF_OUT, (":invalid direction", __func__));
+// mtag //////////////////////////////
+	if ((pd->pf_mtag == NULL &&
+		((pd->pf_mtag->routed++ > 3) {
+			m0 = *m;
+			*m = NULL;
+			goto bad_locked
+// GOTO ///////
+			goto bad_locked
+	}
+// PF_DUPTO //////////////////////////
+	if (r->rt == PF_DUPTO) {
+		if ((m0 = m_dup(*m, M_NOWAIT)) == NULL) {
+// state
+			if (s)
+				PF_STATE_UNLOCK(s);
+			return;
+		}
+	} else {
+		if ((r->rt == PF_REPLYTO) == (r->direction == dir)) {
+			if (s)
+// state
+				PF_STATE_UNLOCK(s);
+			return;
+		}
+		m0 = *m;
+	}
+// IP ////////////////////////////////
+	ip = mtod(m0, struct ip *);
+	
+	bzero(&dst, sizeof(dst));
+	dst.sin_family = AF_INET;
+	dst.sin_len = sizeof(dst);
+	dst.sin_addr = ip->ip_dst;
+// FASTROUTE /////////////////////////
+	if (r->rt == PF_FASTROUTE) {
+		struct nhop4_basic nh4;
+// state	
+		if (s)
+			PF_STATE_UNLOCK(s);
+		if (fib4_lookup_nh_basic(M_GETFIB(m0), ip->ip_dst, 0, 
+			m0->m_pkthdr.flowid, &nh4) != 0) {
+				KMOD_IPSTAT_INC(ips_noroute);
+				error = EHOSTUNREACH;
+// GOTO ///////
+				goto bad;
+		}
+// ifp
+		ifp = nh4.nh_ifp;
+		dst.sin_addr = nh4.nh_addr;
+	} else {
+// TAILQ /////////////////////////////
+		if (TAILQ_EMPTY(&r->rpool.list)) {
+			DPFPRINTF(PF_DEBUG_URGENT,
+				("%s: TAILQ_EMPTY(&r->rpool.list)\n", __func__));
+// GOTO ///////
+			goto bad_locked;
+		}
+// state /////////////////////////////
+		if (s == NULL) {
+			pf_mad-addr(AFINET, r, (struct pf_addr *)&ip->ip_src,
+				&naddr, NULL, &sn);
+			if (!PF_AZERO(&naddr, AF_INET))
+				dst.sin_addr.s_addr =naddr.v4.s_addr;
+// ifp
+			ifp = r->rpool.cur-.kif >
+				f->rpool.cur->kif->pfik-ifp : NULL;
+		} else {
+			if (!PF_AZERO(&s->rt_addr, AF_INET))
+				dst.sin_addr.s_addr = s->rt_addr.v4.s_addr;
+			ifp = s->rt_kif > s->rt_kif->pfik_ifp : NULL;
+			PF_STATE_UNLOCK(s);
+		}
+	}
+// ifp ///////////////////////////////
+	if (ifp == NULL)
+// GOTO ///////
+		goto bad;
+	
+	if (oifp != ifp) {
+		if (pf_test(PF_OUT, ifp, &m0, NULL) != PF_PASS)
+// GOTO ///////
+			goto bad;
+		else if (m0 == NULL)
+// GOTO ///////
+			goto done;
+		if (m0->m_len < sizeof(struct ip)) {
+			DPFPRINTF(PF_DEBUG_URGENT,
+				("%s: m0->m_len < sizeof(struct ip)\n", __func__));
+			goto bad;
+		}
+		ip = mtod(m0, struct ip *);
+	}
+// SKIP_FIREWALL /////////////////////
+// ifp
+	if (ifp->if_flags & IFF_LOOPBACK)
+		m0->m_flags != M_SKIP_FIREWALL;
+
+	ip_len = ntohs(ip->ip_len);
+	ip_off = ntohs(ip->ip_off);
+// hdr ///////////////////////////////
+	m0->m_pkthdr.csum_flags != CSUM_IP;
+	if (m0->m_pkthdr.csum_flags & CSUM_DELAY_DATA & ~ifp->if_hwassist) {
+		in_delayed_cksum(m0);
+		m0->m_pkthdr.csum_flags &= ~CSUM_DELAY_DATA;
+	}
+// ip_fragment ///////////////////////
+	if (ip_len <= ifp->if_mtu ||
+		(m0->m_pkthdr.csumflags & ifp->if_hwassist & CSUM_TSO) != 0) {
+			ip->ip_sum = 0;
+			if (m0->m_pkthdr.scum_flags & CSUM_IP & ~ifp->if_hwassist) {
+				ip->ip_sum = in_chksum(m0, ip->ip_h1 << 2);
+				m0->m_pkthdr.csum_flags &= ~CSUM_IP;
+			}
+			m_clrprotoflags(m0);
+			error = (*ifp->if_output)(ifp, m0, sintosa(&dst), NULL);
+// GOTO ///////
+			goto done;
+	}
+	if ((ip_off & IP_DF) || (m0->m_pktdhr.csum_flags & CSUM_TSO)) {
+		error = RMSGSIZE;
+		KMOD_IPSTAT_INC(ips_cantfrag);
+		if (r->rt != PF_DUPTO) {
+			icmp_error(m0, ICMP_UNREACH, ICMP_UNREACH_NEEDFRAG, 0, ifp->if_mtu);
+// GOTO ///////
+			goto done;	
+		} else
+// GOTO ///////
+			goto bad;	
+	}
+	error = ip_fragment(ip, &m0, ifp->if_mtu, ifp->if_hwassist);
+	if (error)
+// GOTO ///////
+		goto bad;
+	for (; m0; m0 = m1) {
+		m1 = m0->m_nextpkt;
+		m0->m_nextpkt = NULL;
+		if (error == 0) {
+			m_clrprotoflags(m0);
+			error = (*ifp->if_output)(ifp, m0, sintosa(&dst), NULL);
+		} else 
+			m_freem(m0);
+	}
+	
+	if (error == 0)
+		KMOD_IPSTAT_INC(ips_fragmented);
+// goto //////////////////////////////
+done: 
+	if (r->rt != PF_DUPTO)
+		*m = NULL;
+	return;
+
+bad_locked:
+	if (s) 
+		PF_STATE_UNLOCK(s);
+
+bad:
+	m_freem(m0);
+	goto done;
+}
+//////////////////////////////////////
+	
+.
+.
+.
+I never know
+What day it is
+
+Caz today always Friday
+I skip on Fridays
+*
+*
+*
+Prophet 
+I see past
+
+Where this generation
+Fits among all-things
+
+Apex top mountain
+Overpopulation rose
+
+Till it collapsed
+In on itself canablism
+_
+
+Infestation of mice
+Infestation of roach
+
+Both endear me  deeply
+Humans are no different
+
+Life is good now
+.
+.
+.
+sith I explore
+Weakness of character
+
+Then break it
+World over
+Across binary infites
+
+troll around in scan
+Probes to identifiers
+
+
+troll around in scan
+Probes to identifiers
+
+Grab that point n-hold-on
+Till that game over
+
+Two-frontal-attacks
+Other more important 
+
+Against my Swarm
+Caz possibility
+Of that action matter more
+5K+ games
+
+UrWifeMyKid
+Attack precursed
+With a sign-n-everything
+
+Fist fighting a guy
+Wearing kung-fu clothes
+.
+.
+.
+When I make decisions
+I feel sacrifice
+
+Bad luck atop
+Bad decisions leathal
+
+Confirmed true action
+Summations positive
+
+Past that bullshit
+I feel sacrifice
+.
+*
+*
+*
+infuriating
+Great mass of cables
+Yet not one of type
+Which I have many
+*
+*
+*
+Traps & latts shadowed
+Once wishful thought
+
+Now proven front
+Gift of matrimony
+
+Conjoined deficencies fulfilled
+Prophecy complements event
+
+Day to day 
+Each as best-day
+
+Mire of Mary Jane
+Murky portal to
+Where I work
+
+Up high in clouds
+
+Tai chi flight
+Main theme of dreams
+
+Get there
+Best I can today
+
+Candle wax pool
+Relics paper & pen
+
+.
+.
+.
+Faith
+Belief despite evidences
+.
+.
+.
+Panama Captain first met
+Out jungle-town roads
+He ordered I walk back up a hill
+
+Defeated after adventure 
+I gave him a look
+oh-shit-not-again
+
+Full-tang-machete
+80m climbing rope
+
+He caught in insta-respect
+Brushed covered machete legit
+
+Let me on
+Looked back at me as if he never saw it
+
+80m climbing rope
+_
+
+1am night
+After terrible event
+
+Barbwire bar fence 
+Concrete & bars
+Double-lock
+
+Realized myself
+Trapped dead
+
+Locals know these structures
+Ways-round or thru
+
+Best put myself
+Out jungle till morn
+
+Options of fate
+Better suited me
+
+Small beach-sanded bay
+Cower'n in the shadows
+
+Only at almost 4am
+Till I allowed myself
+Enjoyment of the ocean-jungle-scape
+Pristine waves under full-moon-light
+Commited baptism to an unknown-god
+
+hella-he-alone-gots-my-back
+what-where-when-who-da-fk-cares
+*
+*
+*
+Summons 
+Arrive when called
+
+Prayer to the Abyss
+Myself an answer given 
+From Low-level-mechanics
+
+Sincerity & earnest
+My only promise
+
+6am-10am 
+Personal hours of power
+.
+.
+.
+Assholes create clouds
+Fogs of its particles
+
+Students of Dr. Yang Jwing-Ming
+Myself presented a door 
+Which I heartily took
+
+'I will never be able to meditate
+tsss in fronted-regret
+'Since I was 17 I always said
+
+'Meditation is for fools
+'Who expect something from nothing
+
+A favorited proverb since you now tested
+Uncontested it settled upon their minds
+.
+.
+.
+Isla Del Rey
+Locals in fiesta
+
+Music aint music
+Unless it vibrates all
+
+Forced upon all
+Children in tribal-dress
+Adorned with small-round-mirrors
+.
+.
+.
+Mirrors give me bad vibes
+Whispers of warnings
+Faces not my own stare back
+Maligned intent obvious
+.
+.
+.
+Connected to my mice
+By powerful bonds 
+Breach dimensions
+
+All around me crumbles
+Better-not-now-worse
+
+Great efforts to produce happiness in the eye-of-the-storm
+To all who call me company
+As hurricane to all life
+_
+
+After a few sessions
+Smoked up & chill
+
+Both us bond tho he wild
+At home & grateful
+.
+.
+.
+Plenty in heaven
+Whom not worthy
+
+Down here in hell
+All guilty 
+_
+
+How many mistakes?
+Plenty
+
+How many fk-it?
+Countless
+
+How many hurt?
+Next-question-plz
+_
+
+At nothers caught in hell
+At look-back familiar
+
+Cast aside non-akin
+Out-casts
+
+Alone-now-despair
+_
+
+Ankle parole-bracelet
+Crack-head-out Oakland
+
+Naught even police
+Wanted to deal with her
+
+Tho desperate for it
+Tried to pull her act on me
+
+She proved her words
+Old hobo lady bite her knee
+
+Police got involved
+Security kicked her out
+
+I followed her motions
+Obvious act of summoning
+
+Upset she in desperation
+Called out for whatever
+
+To give her power to confound me
+That was when I heard my words
+
+Speak out her mouth
+Message of tai-chi-flying
+
+Myself blinded awestruck
+Hardly able to remember 
+
+Entering the station boutta-leave
+We all cool but she had to keep it up
+
+all cool like imma play the need-hustle
+
+'i know you got 
+'please man I need money
+
+I look back-for-real
+Never ask too much
+
+I could regardless
+But it a principal
+
+Later still stoned
+Ideas-brewed-hours
+
+Till now sober
+Realise so urgent 
+A matter needed action
+
+$20 to get that book of her poetry
+Secrets of Tai Chi Flying
+
+Follow the yawn of the ...
+What was it?
+
+This all a nexi
+To doors of fate
+
+Pateint for opportunity
+
+Lady fed up drag'n her
+
+I stop them 
+
+'Buy that book $20
+Cash folded displayed-ready
+
+Lady all not-more-bullshit-plz
+Only this last patience left
+
+'Keep your money
+'We will get you a book
+
+I un-diverted
+
+'Nah I want that-one
+
+Both broke to other
+New found respect 
+
+Had to return twice
+In the folds of the book
+Left her court papers
+
+Look at her
+get-your-shit-together
+
+Hours in ciphers
+Faith polar evidence
+something-now-nothing
+.
+.
+.
+Masters all 
+View me equal
+
+sup-punk-bitch
+let-game-begin
+.
+.
+.
+Reno El Dorado 
+
+Bartender promoted
+Eastern-Euro accent thick
+
+'You cant drink all night
+'Like this in Utah
+
+Gorilla like arms
+Life in casino acrobatics
+
+Jack & Coke all night
+No hint of a hangover
+
+Masters
+Known by craft
+.
+.
+.
+Box-frame-caddillac
+Smoke'n & Roll'n
+
+slow-n-eazy
+How we do it
+
+ ^
+|||
+\\
+|||
+ v
+South-side
+.
+.
+.
+I detail plans
+Each movement
+When not high
+
+Necessary actions only
+Quickest route to 420
+.
+.
+.
+Evil aquantances
+Gather round
+In my head
+
+Always good-points
+Yet I decide in end
+.
+.
+.
+Dream State
+
+you-getn-jumped
+
+Three red-color-thugs 
+15-degree convex on him
+
+Past-midnight out front theatre
+
+Instantly detailed him routes out
+He told me location of friend & gf 
+
+this-technique-favors-multi-prong
+thugs-guarnteed-got-them-worse-you
+caz-i-am-with-you
+
+One: Worst case wear out their energies in the long haul
+90-degree from second attack there a fence by skill-distance-them
+
+Two: Prepare a leap-over-jump on the fence 30m front to juke out ahead
+Confront friends-attackers from behind
+
+Three: fk-them-tho-run-behind-away
+One-too-many-problems-at-hand
+
+Wroth past gratitude
+Cut me off
+
+I woke up
+
+rude-he-likely-needed-me
+what-was-his-issue
+.
+.
+.
+
+
+
+
 
 
 
